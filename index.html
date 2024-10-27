@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+
+    <h1>Rock Paper Scissors</h1>
+    
+    <script>
+       console.log("Hello, World!")
+
+        let playerScore = 0;
+        let computerScore = 0;
+
+
+        function getRandomInt (max){
+        return Math.floor(Math.random() * max);
+
+       }
+
+        function getComputerChoice(){
+            let availableChoices = ['rock', 'paper', 'scissors'];
+            let computerChoice = availableChoices[getRandomInt(3)]
+            return computerChoice;
+        }
+
+        function getHumanChoice(){
+            let humanChoice = prompt("Choose your option: rock, paper, scissors").toLowerCase();
+            return humanChoice;
+        }
+
+        function playRound(humanChoice,computerChoice){
+        
+            if (humanChoice === "rock" && computerChoice === "rock")
+           {
+            console.log(`It's a draw! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+
+            if (humanChoice === "rock" && computerChoice === "paper")
+           {
+            console.log(`You lost! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            
+            computerScore++;
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+            if (humanChoice === "rock" && computerChoice === "scissors")
+           {
+            console.log(`You won! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            playerScore++;
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+            if (humanChoice === "paper" && computerChoice === "rock")
+           {
+            console.log(`You won! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            playerScore++;
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+            if (humanChoice === "paper" && computerChoice === "paper")
+           {
+            console.log(`It's a draw! You picked ${humanChoice} and computer picked ${computerChoice}`)
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+           if (humanChoice === "paper" && computerChoice === "scissors")
+           {
+            console.log(`You lost! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            computerScore++;
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+           if (humanChoice === "scissors" && computerChoice === "scissors")
+           {
+            console.log(`It's a draw! You picked ${humanChoice} and computer picked ${computerChoice}`)
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+           if (humanChoice === "scissors" && computerChoice === "rock")
+           {
+            console.log(`You lost! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            computerScore++;
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+           if (humanChoice === "scissors" && computerChoice === "paper")
+           {
+            console.log(`You won! You picked ${humanChoice} and computer picked ${computerChoice}`);
+            playerScore++;
+            console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+           }
+        }  
+
+        function playGame(){
+            while (playerScore < 5 && computerScore < 5){
+            const humanSelection = getHumanChoice();
+            const computerSelection = getComputerChoice();
+            playRound(humanSelection, computerSelection);
+            }
+            if (playerScore === 5){
+                console.log(`You won! You reached ${playerScore} points`);
+            }
+            else if (computerScore === 5){
+                console.log(`Computer won! He reached ${computerScore} points. Better luck next time!`);
+            }
+            
+        }
+        
+      
+        addEventListener("load", (event) => {
+            alert("Page loaded successfuly. Game will start now. Good luck!");
+            playGame();
+        })
+        
+
+    </script>
+</body>
+</html>
