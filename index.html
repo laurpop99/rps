@@ -4,10 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+
+
+    
+
 </head>
 <body>
 
-    <h1>Rock Paper Scissors</h1>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: rgb(104, 104, 202);
+            display: flex;
+            justify-content: center;
+    
+        }
+
+        .header h1 {
+            display: inline;
+        }
+
+        .content {
+            background-color: rgb(193, 110, 110);
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            height: 10em;
+            align-items: center;
+       
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .footer h2 {
+            height: 100px;
+            width: 275px;
+        }
+
+        
+
+        button {
+            background-color: rgb(231, 237, 235);
+            border: 0;
+            padding: 10px;
+            width: 100px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+    </style>
     
     <script>
        console.log("Hello, World!")
@@ -15,6 +71,7 @@
         let playerScore = 0;
         let computerScore = 0;
 
+        
 
         function getRandomInt (max){
         return Math.floor(Math.random() * max);
@@ -27,10 +84,6 @@
             return computerChoice;
         }
 
-        function getHumanChoice(){
-            let humanChoice = prompt("Choose your option: rock, paper, scissors").toLowerCase();
-            return humanChoice;
-        }
 
         function playRound(humanChoice,computerChoice){
         
@@ -38,6 +91,8 @@
            {
             console.log(`It's a draw! You picked ${humanChoice} and computer picked ${computerChoice}`);
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            scoreText.textContent = `It's a draw! You picked ${humanChoice} and computer picked ${computerChoice} \n 
+            Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`;
            }
 
             if (humanChoice === "rock" && computerChoice === "paper")
@@ -46,34 +101,42 @@
             
             computerScore++;
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            updateScoreLost(computerChoice);
            }
             if (humanChoice === "rock" && computerChoice === "scissors")
            {
             console.log(`You won! You picked ${humanChoice} and computer picked ${computerChoice}`);
             playerScore++;
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            updateScoreWon(computerChoice);
            }
             if (humanChoice === "paper" && computerChoice === "rock")
            {
             console.log(`You won! You picked ${humanChoice} and computer picked ${computerChoice}`);
             playerScore++;
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            updateScoreWon(computerChoice);
            }
             if (humanChoice === "paper" && computerChoice === "paper")
            {
             console.log(`It's a draw! You picked ${humanChoice} and computer picked ${computerChoice}`)
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            scoreText.textContent = `It's a draw! You picked ${humanChoice} and computer picked ${computerChoice} \n 
+            Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`;
            }
            if (humanChoice === "paper" && computerChoice === "scissors")
            {
             console.log(`You lost! You picked ${humanChoice} and computer picked ${computerChoice}`);
             computerScore++;
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            updateScoreLost(computerChoice);
            }
            if (humanChoice === "scissors" && computerChoice === "scissors")
            {
             console.log(`It's a draw! You picked ${humanChoice} and computer picked ${computerChoice}`)
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            scoreText.textContent = `It's a draw! You picked ${humanChoice} and computer picked ${computerChoice} \n 
+            Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`;
            }
            if (humanChoice === "scissors" && computerChoice === "rock")
            {
@@ -86,31 +149,94 @@
             console.log(`You won! You picked ${humanChoice} and computer picked ${computerChoice}`);
             playerScore++;
             console.log(`Current score is:\n Player: ${playerScore}\n Computer: ${computerScore}`);
+            updateScoreWon(computerChoice);
            }
         }  
+        function updateScoreWon(computerChoice) {
+            scoreText.textContent = "You won this round! Computer picked " + computerChoice + "\n Current score is: " + "\n Player: " + playerScore + "\n Computer: " + computerScore;
+        }
 
-        function playGame(){
-            while (playerScore < 5 && computerScore < 5){
-            const humanSelection = getHumanChoice();
+        function updateScoreLost(computerChoice) {
+            scoreText.textContent = "You lost this round! Computer picked " + computerChoice + "\n Current score is: " + "\n Player: " + playerScore + "\n Computer: " + computerScore;
+        }
+
+        function playGame(humanSelection){
+            const humanSelection2 = humanSelection;
             const computerSelection = getComputerChoice();
-            playRound(humanSelection, computerSelection);
-            }
+            playRound(humanSelection2, computerSelection);
             if (playerScore === 5){
                 console.log(`You won! You reached ${playerScore} points`);
+                scoreText.textContent = "YOU WON";
             }
             else if (computerScore === 5){
                 console.log(`Computer won! He reached ${computerScore} points. Better luck next time!`);
+                scoreText.textContent = "YOU LOST!";
             }
             
         }
         
-      
-        addEventListener("load", (event) => {
-            alert("Page loaded successfuly. Game will start now. Good luck!");
-            playGame();
-        })
         
+    const rockChoice = document.createElement("button");
+    rockChoice.innerHTML = "rock";
+    
+    const paperChoice = document.createElement("button");
+    paperChoice.innerHTML = "paper";
+    
+    const scissorsChoice = document.createElement("button");
+    scissorsChoice.innerHTML = "scissors";
+   
+    const headerContainer = document.createElement("div");
+    headerContainer.classList.add("header");
+
+    const headerTitle = document.createElement("h1");
+    headerTitle.textContent = "Rock, Paper, Scissors, shoot!";
+
+    const choiceContainer = document.createElement("div");
+    choiceContainer.classList.add("content");
+
+    const scoreContainer = document.createElement("div");
+    scoreContainer.classList.add("footer");
+
+
+    const scoreText = document.createElement("h2");
+    scoreText.textContent = "Current score is: " + "\n Player: " + playerScore + "\n Computer: " + computerScore;
+
+
+    rockChoice.addEventListener("click", () => {
+        const humanSelection = "rock";
+        playGame(humanSelection);
+    })
+
+    paperChoice.addEventListener("click", () => {
+        const humanSelection = "paper";
+        playGame(humanSelection);
+    })
+
+    scissorsChoice.addEventListener("click", () => {
+        const humanSelection = "scissors";
+        playGame(humanSelection);
+        
+    })
+
+    choiceContainer.appendChild(rockChoice);
+    choiceContainer.appendChild(paperChoice);
+    choiceContainer.appendChild(scissorsChoice);
+    headerContainer.appendChild(headerTitle);
+    scoreContainer.appendChild(scoreText);
+    document.body.appendChild(headerContainer);
+    document.body.appendChild(choiceContainer);
+    document.body.appendChild(scoreContainer);
+
+
+    
+
+
 
     </script>
+
+  
+
+
+
 </body>
 </html>
